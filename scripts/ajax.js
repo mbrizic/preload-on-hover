@@ -11,3 +11,5 @@ function getHtml(url, callback) {
     xhr.responseType = "document";
     xhr.send();
 };
+
+window.getHtml = getHtml;

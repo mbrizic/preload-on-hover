@@ -1,7 +1,5 @@
 navigation.loadDataFromCurrentUrl();
 
-preloader.turnOn();
+navigation.setup();
 
-window.addEventListener("hashchange", function () {
-    navigation.goToUrl(location.hash);
-});
+preloader.turnOn();

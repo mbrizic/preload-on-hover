@@ -12,7 +12,7 @@ function get(templateName) {
 	return templates[templateName];
 }
 
-var templateCache = {
+window.templateCache = {
 	exists: exists,
 	add: add,
 	get: get,

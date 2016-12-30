@@ -5,6 +5,8 @@ var config = {
     entry: {
         scripts: [
             './scripts/ajax.js',
+            './scripts/templateCache.js',
+            './scripts/preloader.js',
             './scripts/navigation.js',
             './scripts/main.js',
         ],
@@ -14,7 +16,6 @@ var config = {
         filename: 'bundle.js'
     },
     plugins: [
-        // new webpack.optimize.CommonsChunkPlugin(['scripts', 'vendor'], 'bundle--[name].js'),
         new webpack.optimize.UglifyJsPlugin({
             compress: {
                 warnings: false

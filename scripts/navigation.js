@@ -19,12 +19,19 @@ function goToUrl(url) {
     });
 }
 
+function setup() {
+    document.addEventListener("hashchange", function () {
+        navigation.goToUrl(location.hash);
+    });
+}
+
 function _setHtmlPage(htmlName, htmlTemplate) {
     contentDiv.innerHTML = htmlTemplate.innerHTML;
     location = "#" + path;
 }
 
-var navigation = {
+window.navigation = {
+    setup: setup,
     loadDataFromCurrentUrl: loadDataFromCurrentUrl,
     goToUrl: goToUrl
 };

@@ -22,6 +22,6 @@ function _preloadHtmlPage(url){
     });
 }
 
-var preloader = {
+window.preloader = {
     turnOn: setupMouseoverEvents
 }

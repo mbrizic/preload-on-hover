@@ -9,17 +9,22 @@ function loadDataFromCurrentUrl() {
 function goToUrl(url) {
     var htmlName = url.substring(1, url.length)
 
-    getHtml(htmlName, function (htmlData) {
-        contentDiv.innerHTML = htmlData.innerHTML;
-        setBrowserLocation(htmlName);
+    if(templateCache.exists(htmlName)){
+        _setHtmlPage(htmlName, templateCache.get(htmlName))
+        return;
+    }
+
+    getHtml(htmlName, function (htmlTemplate) {
+        _setHtmlPage(htmlName, htmlTemplate)
     });
 }
 
-function setBrowserLocation(path) {
+function _setHtmlPage(htmlName, htmlTemplate) {
+    contentDiv.innerHTML = htmlTemplate.innerHTML;
     location = "#" + path;
 }
 
-navigation = {
+var navigation = {
     loadDataFromCurrentUrl: loadDataFromCurrentUrl,
     goToUrl: goToUrl
 };

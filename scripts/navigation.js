@@ -20,14 +20,14 @@ function goToUrl(url) {
 }
 
 function setup() {
-    document.addEventListener("hashchange", function () {
+    window.addEventListener("hashchange", function () {
         navigation.goToUrl(location.hash);
     });
 }
 
 function _setHtmlPage(htmlName, htmlTemplate) {
     contentDiv.innerHTML = htmlTemplate.innerHTML;
-    location = "#" + path;
+    location = "#" + htmlName;
 }
 
 window.navigation = {

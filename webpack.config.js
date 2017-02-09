@@ -4,6 +4,7 @@ const path = require('path');
 var config = {
     entry: {
         scripts: [
+            './scripts/options.js',
             './scripts/ajax.js',
             './scripts/templateCache.js',
             './scripts/preloader.js',

@@ -1,15 +1,19 @@
-function getHtml(url, callback) {
-    var xhr = new XMLHttpRequest();
+var ajax = (function () {
+    function fetchHtmlPage(url, callback) {
+        var xhr = new XMLHttpRequest();
 
-    xhr.addEventListener("load", function () {
-        if(xhr.status === 200){
-            callback(xhr.responseXML.body);
-        }        
-    });
+        xhr.addEventListener("load", function () {
+            if(xhr.status === 200){
+                callback(xhr.responseXML.body);
+            }        
+        });
 
-    xhr.open('GET', "partials/" + url + ".html");
-    xhr.responseType = "document";
-    xhr.send();
-};
+        xhr.open('GET', options.get.partialsFolder + "/" + url + ".html");
+        xhr.responseType = "document";
+        xhr.send();
+    }
 
-window.getHtml = getHtml;
+    return {
+    	fetchHtmlPage: fetchHtmlPage
+    };
+})(); 

@@ -1,5 +1,3 @@
-navigation.loadDataFromCurrentUrl();
-
-navigation.setup();
-
-preloader.turnOn();
+navigation.setup({
+	enablePreloader: true,
+});

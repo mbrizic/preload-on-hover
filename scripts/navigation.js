@@ -1,37 +1,48 @@
-var contentDiv = document.getElementById("content");
+var navigation = (function () {
+    var contentDiv = null;
+    var opts = options.defaults;
 
-function loadDataFromCurrentUrl() {
-    var currentUrl = location.hash || "#home";
+    function setup(opt) {
+        options.set(opt);
 
-    goToUrl(currentUrl);
-}
+        contentDiv = document.getElementById(options.get.mainContentElementId);
+        _loadDataFromCurrentUrl();
 
-function goToUrl(url) {
-    var htmlName = url.substring(1, url.length)
+        window.addEventListener("hashchange", function () {
+            navigation.goToUrl(location.hash);
+        });
 
-    if(templateCache.exists(htmlName)){
-        _setHtmlPage(htmlName, templateCache.get(htmlName))
-        return;
+        if(options.get.enablePreloader){
+            preloader.setup();
+        }
     }
 
-    getHtml(htmlName, function (htmlTemplate) {
-        _setHtmlPage(htmlName, htmlTemplate)
-    });
-}
+    function goToUrl(url) {
+        var htmlName = url.substring(1, url.length)
 
-function setup() {
-    window.addEventListener("hashchange", function () {
-        navigation.goToUrl(location.hash);
-    });
-}
+        if(templateCache.exists(htmlName)){
+            _setHtmlPage(htmlName, templateCache.get(htmlName))
+            return;
+        }
 
-function _setHtmlPage(htmlName, htmlTemplate) {
-    contentDiv.innerHTML = htmlTemplate.innerHTML;
-    location = "#" + htmlName;
-}
+        ajax.fetchHtmlPage(htmlName, function (htmlTemplate) {
+            _setHtmlPage(htmlName, htmlTemplate)
+        });
+    }
 
-window.navigation = {
-    setup: setup,
-    loadDataFromCurrentUrl: loadDataFromCurrentUrl,
-    goToUrl: goToUrl
-};
+    function _setHtmlPage(htmlName, htmlTemplate) {
+        contentDiv.innerHTML = htmlTemplate.innerHTML;
+        location = "#" + htmlName;
+    }
+
+    function _loadDataFromCurrentUrl() {
+        var currentUrl = location.hash || options.get.homeRoute;
+
+        goToUrl(currentUrl);
+    }
+
+    return {
+        setup: setup,
+        goToUrl: goToUrl,
+    };
+})(); 
